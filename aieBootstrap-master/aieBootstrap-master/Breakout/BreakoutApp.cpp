@@ -22,6 +22,12 @@ bool BreakoutApp::startup() {
 	m_2dRenderer = new Renderer2D();
 	m_physicsScene = new PhysicsScene(0.01f,vec2(0,0));
 
+	Sphere* ball1 = new Sphere(vec2(10, 1), vec2(-20, 0), 4.0f, 2, vec4(1, 0, 0, 1));
+	Sphere* ball2 = new Sphere(vec2(-10, 0), vec2(25, 0), 1.0f, 2, vec4(0, 1, 0, 1));
+
+	m_physicsScene->addActor(ball1);
+	m_physicsScene->addActor(ball2);
+
 	// TODO: remember to change this when redistributing a build!
 	// the following path would be used instead: "./font/consolas.ttf"
 	m_font = new Font("../bin/font/consolas.ttf", 32);
@@ -81,7 +87,6 @@ void BreakoutApp::update(float deltaTime) {
 	 }
 
 	//Draw ball
-	Gizmos::add2DCircle(vec2(0, -35), 3, 12, vec4(1, 1, 0, 1));
 
 
 

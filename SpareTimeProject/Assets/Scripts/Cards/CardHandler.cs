@@ -24,14 +24,10 @@ public class CardHandler : MonoBehaviour
                 StoredLayer = prefabToPlace.layer;
 
                 prefabToPlace.layer = (int)Mathf.Log(layerMask.value, 2);
-
-                Debug.Log(prefabToPlace.layer);
             }
             else
             {
                 prefabToPlace.layer = StoredLayer;
-
-                Debug.Log(prefabToPlace.layer);
             };
 
         }
@@ -40,6 +36,7 @@ public class CardHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         if (!Instance)
         {
             Instance = this;

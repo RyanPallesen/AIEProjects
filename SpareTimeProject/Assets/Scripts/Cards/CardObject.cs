@@ -5,8 +5,13 @@ using UnityEngine;
 
 public class CardObject : ScriptableObject
 {
-    public GameObject cardPrefabObject;
+    public TerrainData MiniTerrainData;
+    public TerrainData BigTerrainData;
 
+    public Terrain MiniTerrain;
+    public Terrain BigTerrain;
+
+    public GameObject MiniatureStorage;
 
     // Start is called before the first frame update
     void Start()
