@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49576bd856fb470438a124ed2a249d09, type: 3}
+  m_Name: 1.RepairGel4
+  m_EditorClassIdentifier: 
+  isFullCard: 1
+  baseCardType: 0
+  timeInHand: 0
+  cardTier: 2
+  frequency: 6
+  cardName: Repair Gel
+  cardDescription: Repair 4 in any system
+  flavourText: This flexible gel can mend damage anywhere on the ship
+  events:
+  - eventType: 4
+    valueRange: {x: 4, y: 4}
+    cardType: 0
+    resourceType: 4
+    eventTypeNix: 0
+    tetrisPiece: 2
+  delayedEvents: []

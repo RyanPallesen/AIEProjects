@@ -1,0 +1,751 @@
+fileFormatVersion: 2
+guid: 4413c7b7f8e6c2d419b3b4827c0fd08d
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6453246507908771634
+    second: Pngtreeblue_technology_border_for_commercial_4081041_0
+  - first:
+      213: 2937572139955630403
+    second: Pngtreeblue_technology_border_for_commercial_4081041_1
+  - first:
+      213: -8242890196820557689
+    second: Pngtreeblue_technology_border_for_commercial_4081041_2
+  - first:
+      213: -2889834407617771175
+    second: Pngtreeblue_technology_border_for_commercial_4081041_6
+  - first:
+      213: 2334799436522319637
+    second: Pngtreeblue_technology_border_for_commercial_4081041_8
+  - first:
+      213: 4942565832612578577
+    second: Pngtreeblue_technology_border_for_commercial_4081041_9
+  - first:
+      213: -4362605308522538091
+    second: Pngtreeblue_technology_border_for_commercial_4081041_10
+  - first:
+      213: 5742689409468933069
+    second: Pngtreeblue_technology_border_for_commercial_4081041_11
+  - first:
+      213: 5501022901313941730
+    second: Pngtreeblue_technology_border_for_commercial_4081041_12
+  - first:
+      213: 8057461797683596949
+    second: Pngtreeblue_technology_border_for_commercial_4081041_13
+  - first:
+      213: -8164751806947046695
+    second: Pngtreeblue_technology_border_for_commercial_4081041_17
+  - first:
+      213: 6360086226212072399
+    second: Pngtreeblue_technology_border_for_commercial_4081041_20
+  - first:
+      213: -7868855480730588645
+    second: Pngtreeblue_technology_border_for_commercial_4081041_24
+  - first:
+      213: -7697806609958789323
+    second: Pngtreeblue_technology_border_for_commercial_4081041_3
+  - first:
+      213: 6624264405460437354
+    second: Pngtreeblue_technology_border_for_commercial_4081041_4
+  - first:
+      213: 7125369982170467176
+    second: Pngtreeblue_technology_border_for_commercial_4081041_5
+  - first:
+      213: -587380653467321920
+    second: Pngtreeblue_technology_border_for_commercial_4081041_7
+  - first:
+      213: -4421566653704662529
+    second: Pngtreeblue_technology_border_for_commercial_4081041_14
+  - first:
+      213: -9032681312525787321
+    second: Pngtreeblue_technology_border_for_commercial_4081041_15
+  - first:
+      213: 6937038849085957
+    second: Pngtreeblue_technology_border_for_commercial_4081041_16
+  - first:
+      213: -5510710281543775058
+    second: Pngtreeblue_technology_border_for_commercial_4081041_18
+  - first:
+      213: -7009037015225351950
+    second: Pngtreeblue_technology_border_for_commercial_4081041_19
+  - first:
+      213: -4069983501053744671
+    second: Pngtreeblue_technology_border_for_commercial_4081041_21
+  - first:
+      213: -7327989083560329806
+    second: Pngtreeblue_technology_border_for_commercial_4081041_22
+  - first:
+      213: -7605157651300826089
+    second: Pngtreeblue_technology_border_for_commercial_4081041_23
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: -1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Pngtreeblue_technology_border_for_commercial_4081041_0
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 499
+        width: 233
+        height: 105
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 72222a38f1319b844b7b0ab6d76be29b
+      internalID: -6453246507908771634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pngtreeblue_technology_border_for_commercial_4081041_1
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 493
+        width: 183
+        height: 115
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 50edcadb0be31b8499cc028b06cda988
+      internalID: 2937572139955630403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pngtreeblue_technology_border_for_commercial_4081041_2
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 595
+        width: 135
+        height: 20
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c165a9fdb705204988b1b7df2a8e766
+      internalID: -8242890196820557689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pngtreeblue_technology_border_for_commercial_4081041_3
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 416
+        width: 36
+        height: 53
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30fd01c3195178940b72e1de1e4a2ef5
+      internalID: -7697806609958789323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pngtreeblue_technology_border_for_commercial_4081041_4
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 457
+        width: 112
+        height: 18
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69d99d2fb2c4bfc408134ca2a04bfff8
+      internalID: 6624264405460437354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pngtreeblue_technology_border_for_commercial_4081041_5
+      rect:
+        serializedVersion: 2
+        x: 154
+        y: 388
+        width: 36
+        height: 81
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd09d18ff8d412b4c87c6a1ecde6fe67
+      internalID: 7125369982170467176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pngtreeblue_technology_border_for_commercial_4081041_6
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 337
+        width: 226
+        height: 123
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d3a99c21c26f914a900ecb463fbbf4a
+      internalID: -2889834407617771175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pngtreeblue_technology_border_for_commercial_4081041_7
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 322
+        width: 36
+        height: 81
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2dc511314f269084da48e8aa43f645fa
+      internalID: -587380653467321920
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pngtreeblue_technology_border_for_commercial_4081041_8
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 383
+        width: 7
+        height: 44
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43824071c2997fa4b8f27c41cf600b05
+      internalID: 2334799436522319637
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pngtreeblue_technology_border_for_commercial_4081041_9
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 363
+        width: 7
+        height: 45
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d79cc19f3037d5e45b3bd78768cadc1f
+      internalID: 4942565832612578577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pngtreeblue_technology_border_for_commercial_4081041_10
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 316
+        width: 141
+        height: 59
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a0f6ac6d74e65d49a8e3a4b4e2c6320
+      internalID: -4362605308522538091
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pngtreeblue_technology_border_for_commercial_4081041_11
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 178
+        width: 207
+        height: 106
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94ec26f526395fe4c9232e41c563f59a
+      internalID: 5742689409468933069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pngtreeblue_technology_border_for_commercial_4081041_12
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 227
+        width: 20
+        height: 8
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b815a7a4e3b4eb44b2e677c4e061ee3
+      internalID: 5501022901313941730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pngtreeblue_technology_border_for_commercial_4081041_13
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 234
+        width: 209
+        height: 64
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 889c49a86cc5cc04aa524341e10f200c
+      internalID: 8057461797683596949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pngtreeblue_technology_border_for_commercial_4081041_14
+      rect:
+        serializedVersion: 2
+        x: 238
+        y: 117
+        width: 73
+        height: 57
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 430036b0534e6a7478d58aa0afe35ec2
+      internalID: -4421566653704662529
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pngtreeblue_technology_border_for_commercial_4081041_15
+      rect:
+        serializedVersion: 2
+        x: 314
+        y: 166
+        width: 64
+        height: 7
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 840a6a6c84f0dc44fbbf9bc499ed0b7a
+      internalID: -9032681312525787321
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pngtreeblue_technology_border_for_commercial_4081041_16
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 117
+        width: 73
+        height: 57
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3bfafa05b6c372c489c8593f6205abd8
+      internalID: 6937038849085957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pngtreeblue_technology_border_for_commercial_4081041_17
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 96
+        width: 170
+        height: 47
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46fe0146a9e774a48a337bfe45658df1
+      internalID: -8164751806947046695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pngtreeblue_technology_border_for_commercial_4081041_18
+      rect:
+        serializedVersion: 2
+        x: 178
+        y: 92
+        width: 44
+        height: 47
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 058e048a52b5cf44587009cf31b66f40
+      internalID: -5510710281543775058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pngtreeblue_technology_border_for_commercial_4081041_19
+      rect:
+        serializedVersion: 2
+        x: 238
+        y: 34
+        width: 213
+        height: 82
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dfd3862c9346fea49b5151ce054e6e07
+      internalID: -7009037015225351950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pngtreeblue_technology_border_for_commercial_4081041_20
+      rect:
+        serializedVersion: 2
+        x: 452
+        y: 92
+        width: 7
+        height: 64
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a3e7131088780142b9783b4b0559a56
+      internalID: 6360086226212072399
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pngtreeblue_technology_border_for_commercial_4081041_21
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 53
+        width: 5
+        height: 42
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7448a7bc00a94041863d25b98ea9e04
+      internalID: -4069983501053744671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pngtreeblue_technology_border_for_commercial_4081041_22
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 44
+        width: 167
+        height: 15
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42056743c1b934c40978796c5dd52cdc
+      internalID: -7327989083560329806
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pngtreeblue_technology_border_for_commercial_4081041_23
+      rect:
+        serializedVersion: 2
+        x: 178
+        y: 45
+        width: 44
+        height: 46
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41fe0131411d4a44a8f33085d91c5ae1
+      internalID: -7605157651300826089
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pngtreeblue_technology_border_for_commercial_4081041_24
+      rect:
+        serializedVersion: 2
+        x: 389
+        y: 34
+        width: 73
+        height: 57
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09f235c88e4cb5847a425b26aa2cf6a0
+      internalID: -7868855480730588645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
