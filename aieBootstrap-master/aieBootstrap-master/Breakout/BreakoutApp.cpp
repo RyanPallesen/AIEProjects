@@ -15,6 +15,21 @@ BreakoutApp::~BreakoutApp() {
 
 }
 
+void BreakoutApp::setupContinuousDemo(glm::vec2 startPos, float inclination, float speed, float gravity)
+{
+	float t = 0;
+	float tStep = 0.5f;
+	float radius = 1.0f;
+	int segments = 12;
+	glm::vec4 colour = glm::vec4(1, 1, 0, 1);
+	while (t <= 5)
+	{
+		// calculate the x, y position of the projectile at time t
+		aie::Gizmos::add2DCircle(vec2(x, y), radius, segments, colour);
+		t += tStep;
+	}
+}
+
 bool BreakoutApp::startup() {
 	
 	Gizmos::create(255U, 255U, 65535U, 65535U);
@@ -24,6 +39,8 @@ bool BreakoutApp::startup() {
 
 	Sphere* ball1 = new Sphere(vec2(10, 1), vec2(-20, 0), 4.0f, 2, vec4(1, 0, 0, 1));
 	Sphere* ball2 = new Sphere(vec2(-10, 0), vec2(25, 0), 1.0f, 2, vec4(0, 1, 0, 1));
+
+	setupContinuousDemo(vec2(-40, 0), 45, 40, 10);
 
 	m_physicsScene->addActor(ball1);
 	m_physicsScene->addActor(ball2);
@@ -47,7 +64,7 @@ void BreakoutApp::update(float deltaTime) {
 	Input* input = Input::getInstance();
 
 
-	Gizmos::clear();
+	//Gizmos::clear();
 	m_physicsScene->update(deltaTime);
 	m_physicsScene->updateGizmos();
 
