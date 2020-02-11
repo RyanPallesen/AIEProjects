@@ -1,7 +1,8 @@
 #include "Physics.h"
 #include <list>
 #include <Gizmos.h>
-PhysicsScene::PhysicsScene(float timestep, glm::vec2 gravity) : m_timeStep(0.01f), m_gravity(glm::vec2(0, 0)) { }
+using namespace glm;
+PhysicsScene::PhysicsScene(float timestep, glm::vec2 gravity) : m_timeStep(timestep), m_gravity(gravity) { }
 PhysicsScene::~PhysicsScene() { for (auto pActor : m_actors) { delete pActor; } }
 
 void PhysicsScene::addActor(PhysicsObject* actor)
@@ -18,8 +19,91 @@ void PhysicsScene::removeActor(PhysicsObject* actor)
 }
 void PhysicsScene::updateGizmos() { for (auto pActor : m_actors) { pActor->makeGizmo(); } }
 
+void PhysicsScene::checkForCollision()
+{
+	int actorCount = m_actors.size();
+	//need to check for collisions against all objects except this one.
+	for (int outer = 0; outer < actorCount - 1; outer++)
+	{
+		for (int inner = outer + 1; inner < actorCount; inner++)
+		{
+			PhysicsObject* object1 = m_actors[outer];
+			PhysicsObject* object2 = m_actors[inner];
+			int shapeId1 = object1->getShapeID();
+			int shapeId2 = object2->getShapeID();
+			// using function pointers
+			int functionIdx = (shapeId1 * SHAPE_COUNT) + shapeId2;
+
+			fn collisionFunctionPtr = collisionFunctionArray[functionIdx];
+			if (collisionFunctionPtr != nullptr)
+			{
+				// did a collision occur?
+				if (collisionFunctionPtr(object1, object2))
+				{
+					
+					std::cout << "Collided" << std::endl;
+				}
+			}
+		}
+	}
+}
+
+
+bool PhysicsScene::sphere2Sphere(PhysicsObject* obj1, PhysicsObject* obj2)
+{
+	//try to cast objects to sphere and sphere
+	Sphere* sphere1 = dynamic_cast<Sphere*>(obj1);
+	Sphere* sphere2 = dynamic_cast<Sphere*>(obj2);
+	//if we are successful then test for collision
+	if (sphere1 != nullptr && sphere2 != nullptr)
+	{
+		Sphere* workingSphere = sphere1;
+		glm::vec2 result = (workingSphere->m_position - sphere2->m_position);
+		float distance = sqrt((result.x * result.x) + (result.y * result.y));
+
+		if (distance < workingSphere->m_radius + sphere2->m_radius)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+bool PhysicsScene::sphere2Plane(PhysicsObject* obj1, PhysicsObject* obj2)
+{
+	Sphere* sphere = dynamic_cast<Sphere*>(obj1);
+	Plane* plane = dynamic_cast<Plane*>(obj2);
+	//if we are successful then test for collision
+	if (sphere != nullptr && plane != nullptr)
+	{
+		glm::vec2 collisionNormal = plane->getNormal();
+		float sphereToPlane = glm::dot(
+			sphere->getPosition(),
+			plane->getNormal()) - plane->getDistance();
+		// if we are behind plane then we flip the normal
+		if (sphereToPlane < 0) {
+			collisionNormal *= -1;
+			sphereToPlane *= -1;
+		}
+		float intersection = sphere->getRadius() - sphereToPlane;
+		if (intersection > 0) {
+			//set sphere velocity to zero here
+			return true;
+		}
+	}
+	return false;
+}
+
+
+bool PhysicsScene::plane2Plane(PhysicsObject*, PhysicsObject*) { return false; };
+ bool PhysicsScene::plane2Sphere(PhysicsObject*, PhysicsObject*) { return false; };
+ bool PhysicsScene::plane2Box(PhysicsObject*, PhysicsObject*) { return false; };
+ bool PhysicsScene::sphere2Box(PhysicsObject*, PhysicsObject*) { return false; };
+ bool PhysicsScene::box2Box(PhysicsObject*, PhysicsObject*) { return false; };
+ bool PhysicsScene::box2Sphere(PhysicsObject*, PhysicsObject*) { return false; };
+ bool PhysicsScene::box2Plane(PhysicsObject*, PhysicsObject*) { return false; };
+
 void PhysicsScene::update(float dt) {
-	static std::list<PhysicsObject*> dirty;
 
 	// update physics at a fixed time step 
 	static float accumulatedTime = 0.0f;
@@ -28,37 +112,11 @@ void PhysicsScene::update(float dt) {
 	{
 		for (auto pActor : m_actors) { pActor->fixedUpdate(m_gravity, m_timeStep); }   accumulatedTime -= m_timeStep;
 
-		// check for collisions (ideally you'd want to have some sort of
-		// scene management in place)
-		for (auto pActor : m_actors)
-		{
-			for (auto pOther : m_actors)
-			{
-				if (pActor == pOther)
-					continue;
-				if (std::find(dirty.begin(), dirty.end(), pActor) != dirty.end() && std::find(dirty.begin(), dirty.end(), pOther) != dirty.end())
-					continue;
+		checkForCollision();
 
-				Rigidbody* pRigid = dynamic_cast<Rigidbody*>(pActor);
-				if (pRigid->checkCollision(pOther) == true)
-				{
-					if (!(pRigid->getVelocity() == glm::vec2(0,0)))
-					{
-						pRigid->applyForceToActor(dynamic_cast<Rigidbody*>(pOther), pRigid->getVelocity() * (pRigid->getMass() + dynamic_cast<Rigidbody*>(pOther)->getMass()));
-						dirty.push_back(pRigid);
-						dirty.push_back(pOther);
-					}
-
-
-				}
-			}
-		}
-
-
-
-		dirty.clear();
 	}
 }
+
 void Rigidbody::fixedUpdate(glm::vec2 gravity, float timeStep)
 {
 	applyForce(gravity * m_mass * timeStep);
@@ -72,23 +130,22 @@ void Sphere::makeGizmo()
 
 }
 
-bool Sphere::checkCollision(PhysicsObject* pOther)
-{
-	switch (pOther->m_shapeID)
-	{
-	case SPHERE:
-	{
-		Sphere* workingSphere = dynamic_cast<Sphere*>(pOther);
-		glm::vec2 result = (workingSphere->m_position - m_position);
-		float distance = sqrt((result.x * result.x) + (result.y * result.y));
+Sphere::Sphere(glm::vec2 position, glm::vec2 velocity, float mass, float radius, glm::vec4 colour) : Rigidbody(SPHERE, position, velocity, 0, mass) { m_radius = radius;  m_colour = colour; }
 
-		if (distance < workingSphere->m_radius + m_radius)
-		{
-			return true;
-		}
-		break;
-	}
-	}
+Plane::Plane() : PhysicsObject(ShapeType::PLANE) {
+	m_distanceToOrigin = 0;
+	m_normal = vec2(0, 1);
 }
 
-Sphere::Sphere(glm::vec2 position, glm::vec2 velocity, float mass, float radius, glm::vec4 colour) : Rigidbody(SPHERE, position, velocity, 0, mass) { m_radius = radius;  m_colour = colour; }
+void Plane::makeGizmo()
+{
+	float lineSegmentLength = 300;
+	vec2 centerPoint = m_normal * m_distanceToOrigin;
+	// easy to rotate normal through 90 degrees around z
+	vec2 parallel(m_normal.y, -m_normal.x);
+	vec4 colour(1, 1, 1, 1);
+	vec2 start = centerPoint + (parallel * lineSegmentLength);
+	vec2 end = centerPoint - (parallel * lineSegmentLength);
+	aie::Gizmos::add2DLine(start, end, colour);
+}
+

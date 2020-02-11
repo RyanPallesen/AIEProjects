@@ -1,10 +1,23 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Events;
 
 public class TerrainChunk
 {
 
     public bool hasBeenIndexed;
+
+    public enum Tags
+    {
+        UNDERWATER,
+        BEACH,
+        GRASSLANDS,
+        MOUNTAIN,
+        TOWN,
+        FOREST,
+    }
+
+    public List<Tags> tags = new List<Tags>();
 
     const float colliderGenerationDistanceThreshold = 5;
     public event System.Action<TerrainChunk, bool> onVisibilityChanged;

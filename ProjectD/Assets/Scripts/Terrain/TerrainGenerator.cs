@@ -93,7 +93,7 @@ public class TerrainGenerator : MonoBehaviour
                         newChunk.onVisibilityChanged += OnTerrainChunkVisibilityChanged;
                         newChunk.onGenerate += AttemptPopulateChunk;
 
-                        if(newChunk.heightMap.minValue < minHeight)
+                        if (newChunk.heightMap.minValue < minHeight)
                         {
                             minHeight = newChunk.heightMap.minValue;
                         }
@@ -114,6 +114,7 @@ public class TerrainGenerator : MonoBehaviour
 
     public float townHeightRange = 10f;
     public float waterHeight = 10f;
+    public float beachHeight = 15f;
     void AttemptPopulateChunk(TerrainChunk chunk)
     {
         chunk.meshObject.name = chunk.averageHeight.ToString();
@@ -133,9 +134,9 @@ public class TerrainGenerator : MonoBehaviour
                 {
                     TerrainChunk checkingChunk = terrainChunkDictionary[viewedChunkCoord];
 
-                    if(checkingChunk.averageHeight != 0)//verify chunk has been initialized
+                    if (checkingChunk.averageHeight != 0)//verify chunk has been initialized
                     {
-                        if(checkingChunk.averageHeight > baseAverage - townHeightRange && checkingChunk.averageHeight < baseAverage + townHeightRange)
+                        if (checkingChunk.averageHeight > baseAverage - townHeightRange && checkingChunk.averageHeight < baseAverage + townHeightRange)
                         {
 
                         }
@@ -144,28 +145,67 @@ public class TerrainGenerator : MonoBehaviour
                             mayContainTown = false;
                         }
                     }
-                    
+
                 }
             }
         }
 
-        if(baseAverage < waterHeight)
+        if (baseAverage < waterHeight)
         {
             mayContainTown = false;
             chunk.meshObject.name += "DROWNED";
+            chunk.tags.Add(TerrainChunk.Tags.UNDERWATER);
+        }
+        else if (baseAverage < beachHeight)
+        {
+            chunk.meshObject.name += "Beach";
+            chunk.tags.Add(TerrainChunk.Tags.BEACH);
         }
 
         if (mayContainTown)
         {
             chunk.meshObject.name += "TOWN";
 
+            chunk.tags.Add(TerrainChunk.Tags.TOWN);
+
+            UpdateTownChunk(chunk);
+        }
+    }
+
+    void UpdateTownChunk(TerrainChunk chunk)
+    {
+        chunk.hasBeenIndexed = true;
+        Color randomColor = Random.ColorHSV();
+
+        Debug.Log("ETAET");
+        if (chunk.tags.Contains(TerrainChunk.Tags.TOWN))
+        {
             GameObject temp = GameObject.CreatePrimitive(PrimitiveType.Cube);
 
             temp.transform.SetParent(chunk.meshObject.transform);
-            temp.transform.localPosition = new Vector3(0, baseAverage, 0);
+            temp.transform.localPosition = new Vector3(0, chunk.averageHeight, 0);
             temp.transform.localScale = new Vector3(32, 32, 32);
+            temp.GetComponent<Renderer>().material.color = randomColor;
+
+            for (int x = -1; x <= 1; x++)
+            {
+                for (int y = -1; y <= 1; y++)
+                {
+                    Vector2 viewedChunkCoord = new Vector2(chunk.coord.x + x, chunk.coord.y + y);
+
+                    if (!terrainChunkDictionary.ContainsKey(viewedChunkCoord))//if chunk has not been initialized, initialize it. needed to complete town generation as a whole unit
+                    {
+                        TerrainChunk newChunk = new TerrainChunk(viewedChunkCoord, heightMapSettings, meshSettings, detailLevels, colliderLODIndex, transform, viewer, mapMaterial);
+                        terrainChunkDictionary.Add(viewedChunkCoord, newChunk);
+                        newChunk.onVisibilityChanged += OnTerrainChunkVisibilityChanged;
+                        newChunk.onGenerate += AttemptPopulateChunk;
+                        newChunk.Load();
+                    }
+                }
+            }
         }
     }
+
     void OnTerrainChunkVisibilityChanged(TerrainChunk chunk, bool isVisible)
     {
         if (isVisible)
