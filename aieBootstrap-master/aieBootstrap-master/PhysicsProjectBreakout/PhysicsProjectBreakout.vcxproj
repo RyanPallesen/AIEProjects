@@ -19,11 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{DEA49362-B428-4215-8D64-4EA0B4FF0858}</ProjectGuid>
+    <ProjectGuid>{B2435A33-0879-48A6-BB70-48663FE924F8}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>Breakout</RootNamespace>
+    <RootNamespace>PhysicsProjectBreakout</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
-    <ProjectName>PhysicsLib</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -163,21 +162,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BreakoutApp.cpp" />
+    <ClCompile Include="PhysicsProjectBreakoutApp.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="PhysicsObject.cpp" />
-    <ClCompile Include="PhysicsScene.cpp" />
-    <ClCompile Include="Plane.cpp" />
-    <ClCompile Include="RigidBody.cpp" />
-    <ClCompile Include="Sphere.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BreakoutApp.h" />
-    <ClInclude Include="PhysicsObject.h" />
-    <ClInclude Include="PhysicsScene.h" />
-    <ClInclude Include="Plane.h" />
-    <ClInclude Include="RigidBody.h" />
-    <ClInclude Include="Sphere.h" />
+    <ClInclude Include="PhysicsProjectBreakoutApp.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

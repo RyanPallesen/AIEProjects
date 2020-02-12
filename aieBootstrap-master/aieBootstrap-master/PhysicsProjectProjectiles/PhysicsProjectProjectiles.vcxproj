@@ -19,11 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{DEA49362-B428-4215-8D64-4EA0B4FF0858}</ProjectGuid>
+    <ProjectGuid>{EE2003D1-3989-43C2-8481-8AF03D2D0D5C}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>Breakout</RootNamespace>
+    <RootNamespace>PhysicsProjectProjectiles</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
-    <ProjectName>PhysicsLib</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -163,21 +162,28 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BreakoutApp.cpp" />
+    <ClCompile Include="..\Breakout\Physics.cpp" />
+    <ClCompile Include="..\Breakout\PhysicsObject.cpp" />
+    <ClCompile Include="..\Breakout\PhysicsScene.cpp" />
+    <ClCompile Include="..\Breakout\Plane.cpp" />
+    <ClCompile Include="..\Breakout\RigidBody.cpp" />
+    <ClCompile Include="..\Breakout\Sphere.cpp" />
+    <ClCompile Include="PhysicsProjectProjectilesApp.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="PhysicsObject.cpp" />
-    <ClCompile Include="PhysicsScene.cpp" />
-    <ClCompile Include="Plane.cpp" />
-    <ClCompile Include="RigidBody.cpp" />
-    <ClCompile Include="Sphere.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BreakoutApp.h" />
-    <ClInclude Include="PhysicsObject.h" />
-    <ClInclude Include="PhysicsScene.h" />
-    <ClInclude Include="Plane.h" />
-    <ClInclude Include="RigidBody.h" />
-    <ClInclude Include="Sphere.h" />
+    <ClInclude Include="..\Breakout\Physics.h" />
+    <ClInclude Include="..\Breakout\PhysicsObject.h" />
+    <ClInclude Include="..\Breakout\PhysicsScene.h" />
+    <ClInclude Include="..\Breakout\Plane.h" />
+    <ClInclude Include="..\Breakout\RigidBody.h" />
+    <ClInclude Include="..\Breakout\Sphere.h" />
+    <ClInclude Include="PhysicsProjectProjectilesApp.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Breakout\Breakout.vcxproj">
+      <Project>{dea49362-b428-4215-8d64-4ea0b4ff0858}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -2,7 +2,8 @@
 
 #include "Application.h"
 #include "Renderer2D.h"
-#include "Physics.h"
+#include "PhysicsScene.h"
+#include "PhysicsObject.h"
 class BreakoutApp : public aie::Application {
 public:
 

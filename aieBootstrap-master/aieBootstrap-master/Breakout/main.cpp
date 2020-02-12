@@ -6,7 +6,7 @@ int main() {
 	auto app = new BreakoutApp();
 
 	// initialise and loop
-	app->run("AIE", 1280, 720, false);
+	app->run("AIE", 1920, 1080, true);
 
 	// deallocation
 	delete app;

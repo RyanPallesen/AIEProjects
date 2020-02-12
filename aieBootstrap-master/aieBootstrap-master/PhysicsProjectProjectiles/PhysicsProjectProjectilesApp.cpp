@@ -1,86 +1,59 @@
-#include "BreakoutApp.h"
+#include "PhysicsProjectProjectilesApp.h"
 #include "Texture.h"
 #include "Font.h"
 #include "Input.h"
 #include <Gizmos.h>
-#include <glm\ext.hpp>
 #include <math.h>
-#include "Sphere.h"
-#include "Plane.h"
+
+#include <Application.h>
 
 using namespace glm;
 using namespace aie;
-BreakoutApp::BreakoutApp() {
+PhysicsProjectProjectilesApp::PhysicsProjectProjectilesApp() {
 
 }
 
-BreakoutApp::~BreakoutApp() {
+PhysicsProjectProjectilesApp::~PhysicsProjectProjectilesApp() {
 
 }
 
-void BreakoutApp::setupContinuousDemo(glm::vec2 startPos, glm::vec2 velocity, float gravity, float mass)
+void PhysicsProjectProjectilesApp::setupContinuousDemo(glm::vec2 startPos, glm::vec2 velocity, glm::vec2 gravity, float mass)
 {
+	int maxT = 16;
 	float t = 0;
-	float tStep = 0.5f;
-	float radius = 1.0f;
+	float tStep = 0.1f;
+	float radius = 0.5f;
 	int segments = 12;
 	glm::vec4 colour = glm::vec4(1, 1, 0, 1);
 
-	while (t <= 5)
+	while (t <= maxT)
 	{
+		radius -= (radius / (maxT / tStep));
 		// calculate the x, y position of the projectile at time t
 
-		float x = startPos.x + (velocity.x * t);
-		float y = startPos.y + (velocity.y * t) + ((gravity)*t * t * 0.5f);//can't factor in mass
+		float x = startPos.x + (velocity.x * t) + ((gravity.x) * t * t * 0.5f);;
+		float y = startPos.y + (velocity.y * t) + ((gravity.y)*t * t * 0.5f);
 
 		aie::Gizmos::add2DCircle(vec2(x, y), radius, segments, colour);
 		t += tStep;
 	}
 }
 
-bool BreakoutApp::startup() {
+Sphere* ball1 = new Sphere(vec2(40, 0), vec2(-50, 8), 2.0f, 2, vec4((float)rand() / RAND_MAX, (float)rand() / RAND_MAX, (float)rand() / RAND_MAX, 1));
+Sphere* ball2 = new Sphere(vec2(-40, 0), vec2(35, 4), 5.0f, 5, vec4((float)rand() / RAND_MAX, (float)rand() / RAND_MAX, (float)rand() / RAND_MAX, 1));
+Sphere* ball3 = new Sphere(vec2(0, 0), vec2(5, 10), 0.1f, 1, vec4((float)rand() / RAND_MAX, (float)rand() / RAND_MAX, (float)rand() / RAND_MAX, 1));
+
+bool PhysicsProjectProjectilesApp::startup() {
 	srand(time(NULL));
 
 	Gizmos::create(255U, 255U, 65535U, 65535U);
 
 	m_2dRenderer = new Renderer2D();
-	m_physicsScene = new PhysicsScene(0.001f, vec2(0, -25));
+	m_physicsScene = new PhysicsScene(0.01f, vec2(0, -25));
 
-	for (int i = 0; i < 32; i++)
-	{
-		float size = 0.5f + ((float)rand() / RAND_MAX) * 3;
-		float x = (rand() % 160) - 80.0f;
-		float y = (rand() % 256);
-		m_physicsScene->addActor(new Sphere(vec2(x, y), vec2(1, y), size, size, vec4((float)rand() / RAND_MAX, (float)rand() / RAND_MAX, (float)rand() / RAND_MAX, 1)));
-	}
-	//Sphere* ball1 = new Sphere(vec2(40, 0), vec2(-50, 25), 2.0f, 2, vec4((float)rand() / RAND_MAX, (float)rand() / RAND_MAX, (float)rand() / RAND_MAX, 1));
-	//Sphere* ball2 = new Sphere(vec2(-40, 0), vec2(50, 25), 5.0f, 5, vec4((float)rand() / RAND_MAX, (float)rand() / RAND_MAX, (float)rand() / RAND_MAX, 1));
-	//Sphere* ball3 = new Sphere(vec2(0, 0), vec2(-50, 25), 0.1f, 1, vec4((float)rand() / RAND_MAX, (float)rand() / RAND_MAX, (float)rand() / RAND_MAX, 1));
-	//Sphere* ball4 = new Sphere(vec2(0, 5), vec2(-50, 50), 0.1f, 1, vec4((float)rand() / RAND_MAX, (float)rand() / RAND_MAX, (float)rand() / RAND_MAX, 1));
-	Plane* plane1 = new Plane(vec2(2, -2), 80);
-	Plane* plane2 = new Plane(vec2(2, 2), -80);
-
-	Plane* plane3 = new Plane(vec2(2, -3), 70);
-	Plane* plane4 = new Plane(vec2(2, 3), -70);
-
-	Plane* plane5 = new Plane(vec2(1, -4), 60);
-	Plane* plane6 = new Plane(vec2(1, 4), -60);
-
-	Plane* plane7 = new Plane(vec2(0, 90), -55);
-
-	//setupContinuousDemo(vec2(-40, 0), vec2(20, 45), -25, 10.0f);
-
-	//m_physicsScene->addActor(ball1);
-	//m_physicsScene->addActor(ball2);
-	//m_physicsScene->addActor(ball3);
-	//m_physicsScene->addActor(ball4);
-	m_physicsScene->addActor(plane1);
-	m_physicsScene->addActor(plane2);
-	m_physicsScene->addActor(plane3);
-	m_physicsScene->addActor(plane4);
-	m_physicsScene->addActor(plane5);
-	m_physicsScene->addActor(plane6);
-	m_physicsScene->addActor(plane7);
+	m_physicsScene->addActor(ball1);
+	m_physicsScene->addActor(ball2);
+	m_physicsScene->addActor(ball3);
 	// TODO: remember to change this when redistributing a build!
 	// the following path would be used instead: "./font/consolas.ttf"
 	m_font = new Font("../bin/font/consolas.ttf", 32);
@@ -88,21 +61,26 @@ bool BreakoutApp::startup() {
 	return true;
 }
 
-void BreakoutApp::shutdown() {
+void PhysicsProjectProjectilesApp::shutdown() {
 
 	delete m_font;
 	delete m_2dRenderer;
 }
 
-void BreakoutApp::update(float deltaTime) {
+void PhysicsProjectProjectilesApp::update(float deltaTime) {
 
 	// input example
 	Input* input = Input::getInstance();
 
 
-	//if (input->isMouseButtonDown(0))
+	if (input->isMouseButtonDown(0))
 	{
 		Gizmos::clear();
+
+		setupContinuousDemo(ball1->getPosition(), ball1->getVelocity(), m_physicsScene->getGravity(), ball1->getMass());
+		setupContinuousDemo(ball2->getPosition(), ball2->getVelocity(), m_physicsScene->getGravity(), ball2->getMass());
+		setupContinuousDemo(ball3->getPosition(), ball3->getVelocity(), m_physicsScene->getGravity(), ball3->getMass());
+
 		m_physicsScene->update(deltaTime);
 		m_physicsScene->updateGizmos();
 	}
@@ -163,7 +141,7 @@ void BreakoutApp::update(float deltaTime) {
 		quit();
 }
 
-void BreakoutApp::draw() {
+void PhysicsProjectProjectilesApp::draw() {
 
 	// wipe the screen to the background colour
 	clearScreen();
