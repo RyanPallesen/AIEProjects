@@ -6,6 +6,7 @@
 #include "../Breakout/PhysicsScene.h"
 #include "../Breakout/Sphere.h"
 #include "../Breakout/Plane.h"
+#include "../Breakout/Box.h"
 
 class PhysicsProjectProjectilesApp : public aie::Application {
 public:
@@ -19,6 +20,7 @@ public:
 	virtual void update(float deltaTime);
 	virtual void draw();
 	void setupContinuousDemo(glm::vec2 startPos, glm::vec2 velocity, glm::vec2 gravity, float mass);
+	glm::vec2 ToWorldSpace(int screenX, int screenY);
 
 protected:
 

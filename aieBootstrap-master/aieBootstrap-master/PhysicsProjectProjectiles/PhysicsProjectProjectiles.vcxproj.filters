@@ -39,6 +39,9 @@
     <ClCompile Include="..\Breakout\Sphere.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\Breakout\Box.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PhysicsProjectProjectilesApp.h">
@@ -60,6 +63,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Breakout\Sphere.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Breakout\Box.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

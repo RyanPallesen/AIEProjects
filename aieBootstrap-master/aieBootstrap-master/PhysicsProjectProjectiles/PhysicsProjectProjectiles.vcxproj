@@ -162,6 +162,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Breakout\Box.cpp" />
     <ClCompile Include="..\Breakout\Physics.cpp" />
     <ClCompile Include="..\Breakout\PhysicsObject.cpp" />
     <ClCompile Include="..\Breakout\PhysicsScene.cpp" />
@@ -172,6 +173,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Breakout\Box.h" />
     <ClInclude Include="..\Breakout\Physics.h" />
     <ClInclude Include="..\Breakout\PhysicsObject.h" />
     <ClInclude Include="..\Breakout\PhysicsScene.h" />

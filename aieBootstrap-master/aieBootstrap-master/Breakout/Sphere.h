@@ -5,6 +5,8 @@ public:  Sphere(glm::vec2 position, glm::vec2 velocity, float mass, float radius
 
 	  virtual void makeGizmo();
 
+	  bool ContainsPoint(glm::vec2 point);
+
 	  void debug() {};
 
 	  float getRadius() { return m_radius; }  glm::vec4 getColour() { return m_colour; }

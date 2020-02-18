@@ -7,7 +7,8 @@
 #include <math.h>
 #include "Sphere.h"
 #include "Plane.h"
-
+#include "Box.h"
+#include <string>
 using namespace glm;
 using namespace aie;
 BreakoutApp::BreakoutApp() {
@@ -16,6 +17,22 @@ BreakoutApp::BreakoutApp() {
 
 BreakoutApp::~BreakoutApp() {
 
+}
+
+// Convert screen space coords to world space coords
+glm::vec2 BreakoutApp::ToWorldSpace(int screenX, int screenY)
+{
+	// Get the window dimensions
+	glm::vec2 windowDimensions = glm::vec2(getWindowWidth() * 0.5f, getWindowHeight() * 0.5f);
+	static float aspectRatio = windowDimensions.x / windowDimensions.y;
+
+	// Convert screen position to numbers in range -1 to 1
+	glm::vec2 normalisedScreenPos = (glm::vec2((float)screenX, (float)screenY) / windowDimensions) - glm::vec2(1.0f, 1.0f);
+
+	// Convert screen position to world space
+	glm::vec2 worldPos = glm::vec2(normalisedScreenPos.x * 100.0f, normalisedScreenPos.y * 100.0f / aspectRatio);
+
+	return worldPos;
 }
 
 void BreakoutApp::setupContinuousDemo(glm::vec2 startPos, glm::vec2 velocity, float gravity, float mass)
@@ -46,17 +63,11 @@ bool BreakoutApp::startup() {
 	m_2dRenderer = new Renderer2D();
 	m_physicsScene = new PhysicsScene(0.001f, vec2(0, -25));
 
-	for (int i = 0; i < 32; i++)
-	{
-		float size = 0.5f + ((float)rand() / RAND_MAX) * 3;
-		float x = (rand() % 160) - 80.0f;
-		float y = (rand() % 256);
-		m_physicsScene->addActor(new Sphere(vec2(x, y), vec2(1, y), size, size, vec4((float)rand() / RAND_MAX, (float)rand() / RAND_MAX, (float)rand() / RAND_MAX, 1)));
-	}
-	//Sphere* ball1 = new Sphere(vec2(40, 0), vec2(-50, 25), 2.0f, 2, vec4((float)rand() / RAND_MAX, (float)rand() / RAND_MAX, (float)rand() / RAND_MAX, 1));
-	//Sphere* ball2 = new Sphere(vec2(-40, 0), vec2(50, 25), 5.0f, 5, vec4((float)rand() / RAND_MAX, (float)rand() / RAND_MAX, (float)rand() / RAND_MAX, 1));
-	//Sphere* ball3 = new Sphere(vec2(0, 0), vec2(-50, 25), 0.1f, 1, vec4((float)rand() / RAND_MAX, (float)rand() / RAND_MAX, (float)rand() / RAND_MAX, 1));
-	//Sphere* ball4 = new Sphere(vec2(0, 5), vec2(-50, 50), 0.1f, 1, vec4((float)rand() / RAND_MAX, (float)rand() / RAND_MAX, (float)rand() / RAND_MAX, 1));
+	m_physicsScene->addActor(new Box(glm::vec2(-10, 5), glm::vec2(-55, 5), 64, glm::vec2(2, 5), glm::vec4(0.25f, 0.5f, 0.0f, 1), 0));
+
+	m_physicsScene->addActor(new Box(glm::vec2(10, 5), glm::vec2(55, 5), 64, glm::vec2(2, 5), glm::vec4(0.6f, 0.1f, 0.0f, 1), 0));
+
+
 	Plane* plane1 = new Plane(vec2(2, -2), 80);
 	Plane* plane2 = new Plane(vec2(2, 2), -80);
 
@@ -68,12 +79,7 @@ bool BreakoutApp::startup() {
 
 	Plane* plane7 = new Plane(vec2(0, 90), -55);
 
-	//setupContinuousDemo(vec2(-40, 0), vec2(20, 45), -25, 10.0f);
 
-	//m_physicsScene->addActor(ball1);
-	//m_physicsScene->addActor(ball2);
-	//m_physicsScene->addActor(ball3);
-	//m_physicsScene->addActor(ball4);
 	m_physicsScene->addActor(plane1);
 	m_physicsScene->addActor(plane2);
 	m_physicsScene->addActor(plane3);
@@ -100,7 +106,36 @@ void BreakoutApp::update(float deltaTime) {
 	Input* input = Input::getInstance();
 
 
-	//if (input->isMouseButtonDown(0))
+	if (input->wasMouseButtonPressed(0))
+	{
+		float size = 0.5f + ((float)rand() / RAND_MAX) * 4;
+		float sizey = 0.5f + ((float)rand() / RAND_MAX) * 4;
+		float x = (rand() % 512) - 256;
+		float y = (rand() % 1024);
+
+		if (rand() % 100 < 60)
+		{
+			m_physicsScene->addActor(new Sphere(vec2(x, y), vec2(1, 1), size, size, vec4((float)rand() / RAND_MAX, (float)rand() / RAND_MAX, (float)rand() / RAND_MAX, 1)));
+		}
+		else
+		{
+			m_physicsScene->addActor(new Box(vec2(x, y), vec2(-1, -1), size * sizey, vec2(size, sizey), vec4((float)rand() / RAND_MAX, (float)rand() / RAND_MAX, (float)rand() / RAND_MAX, 1), rand() % 360));
+		}
+	}
+
+	if (input->isMouseButtonDown(1))
+	{
+		for each (PhysicsObject * var in m_physicsScene->getActors())
+		{
+			if (dynamic_cast<Rigidbody*>(var) != nullptr)
+			{
+				if (dynamic_cast<Rigidbody*>(var)->ContainsPoint(ToWorldSpace(input->getMouseX(), input->getMouseY())))
+				{
+					m_physicsScene->removeActor(var);
+				}
+			}
+		}
+	}
 	{
 		Gizmos::clear();
 		m_physicsScene->update(deltaTime);
@@ -157,7 +192,7 @@ void BreakoutApp::update(float deltaTime) {
 	}
 
 	//Draw paddle
-	Gizmos::add2DAABBFilled(vec2(paddleX, -40), vec2(12, 2), vec4(1, 0, 1, 1));
+	//Gizmos::add2DAABBFilled(vec2(paddleX, -40), vec2(12, 2), vec4(1, 0, 1, 1));
 	// exit the application
 	if (input->isKeyDown(INPUT_KEY_ESCAPE))
 		quit();
@@ -175,8 +210,10 @@ void BreakoutApp::draw() {
 	static float aspectRatio = 16 / 9.f;
 	Gizmos::draw2D(ortho<float>(-100, 100, -100 / aspectRatio, 100 / aspectRatio, -1.0f, 1.0f));
 	// output some text, uses the last used colour
-	m_2dRenderer->drawText(m_font, "Press ESC to quit", 0, 0);
+	std::string myString = "Current Actors: " + std::to_string(m_physicsScene->getActorCount());
+	const char* cstr = myString.c_str();
 
+	m_2dRenderer->drawText(m_font, cstr, 0, 0);
 	// done drawing sprites
 	m_2dRenderer->end();
 }

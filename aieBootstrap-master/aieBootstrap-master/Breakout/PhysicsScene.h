@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include "PhysicsObject.h"
+#include "RigidBody.h"
 
 
 
@@ -28,9 +29,13 @@ public:
 	static bool sphere2Sphere(PhysicsObject*, PhysicsObject*);
 	static bool plane2Box(PhysicsObject*, PhysicsObject*);
 	static bool sphere2Box(PhysicsObject*, PhysicsObject*);
+	static void ApplyContactForces(Rigidbody* body1, Rigidbody* body2, glm::vec2 norm, float pen);
 	static bool box2Box(PhysicsObject*, PhysicsObject*);
 	static bool box2Sphere(PhysicsObject*, PhysicsObject*);
 	static bool box2Plane(PhysicsObject*, PhysicsObject*);
+	int getActorCount() { return m_actors.size(); }
+	std::vector<PhysicsObject*> getActors() { return m_actors; }
+
 protected:
 	glm::vec2 m_gravity;
 	float m_timeStep;

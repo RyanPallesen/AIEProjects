@@ -16,6 +16,21 @@ PhysicsProjectProjectilesApp::PhysicsProjectProjectilesApp() {
 PhysicsProjectProjectilesApp::~PhysicsProjectProjectilesApp() {
 
 }
+// Convert screen space coords to world space coords
+glm::vec2 PhysicsProjectProjectilesApp::ToWorldSpace(int screenX, int screenY)
+{
+	// Get the window dimensions
+	glm::vec2 windowDimensions = glm::vec2(getWindowWidth() * 0.5f, getWindowHeight() * 0.5f);
+	static float aspectRatio = windowDimensions.x / windowDimensions.y;
+
+	// Convert screen position to numbers in range -1 to 1
+	glm::vec2 normalisedScreenPos = (glm::vec2((float)screenX, (float)screenY) / windowDimensions) - glm::vec2(1.0f, 1.0f);
+
+	// Convert screen position to world space
+	glm::vec2 worldPos = glm::vec2(normalisedScreenPos.x * 100.0f, normalisedScreenPos.y * 100.0f / aspectRatio);
+
+	return worldPos;
+}
 
 void PhysicsProjectProjectilesApp::setupContinuousDemo(glm::vec2 startPos, glm::vec2 velocity, glm::vec2 gravity, float mass)
 {
@@ -32,17 +47,13 @@ void PhysicsProjectProjectilesApp::setupContinuousDemo(glm::vec2 startPos, glm::
 		// calculate the x, y position of the projectile at time t
 
 		float x = startPos.x + (velocity.x * t) + ((gravity.x) * t * t * 0.5f);;
-		float y = startPos.y + (velocity.y * t) + ((gravity.y)*t * t * 0.5f);
+		float y = startPos.y + (velocity.y * t) + ((gravity.y) * t * t * 0.5f);
 
 		aie::Gizmos::add2DCircle(vec2(x, y), radius, segments, colour);
 		t += tStep;
 	}
 }
-
-Sphere* ball1 = new Sphere(vec2(40, 0), vec2(-50, 8), 2.0f, 2, vec4((float)rand() / RAND_MAX, (float)rand() / RAND_MAX, (float)rand() / RAND_MAX, 1));
-Sphere* ball2 = new Sphere(vec2(-40, 0), vec2(35, 4), 5.0f, 5, vec4((float)rand() / RAND_MAX, (float)rand() / RAND_MAX, (float)rand() / RAND_MAX, 1));
-Sphere* ball3 = new Sphere(vec2(0, 0), vec2(5, 10), 0.1f, 1, vec4((float)rand() / RAND_MAX, (float)rand() / RAND_MAX, (float)rand() / RAND_MAX, 1));
-
+ Box* paddle = new Box(vec2(0, 0), vec2(0, 0), 15, vec2(5, 2), vec4(0.25, 0.25, 1, 1), 0);
 bool PhysicsProjectProjectilesApp::startup() {
 	srand(time(NULL));
 
@@ -51,9 +62,11 @@ bool PhysicsProjectProjectilesApp::startup() {
 	m_2dRenderer = new Renderer2D();
 	m_physicsScene = new PhysicsScene(0.01f, vec2(0, -25));
 
-	m_physicsScene->addActor(ball1);
-	m_physicsScene->addActor(ball2);
-	m_physicsScene->addActor(ball3);
+	m_physicsScene->addActor(paddle);
+	paddle->setKinematic(true);
+
+	for (int i = -25; i < 25; i++)
+		m_physicsScene->addActor(new Plane(vec2(i*5, 15),-35 - abs(i*5)));
 	// TODO: remember to change this when redistributing a build!
 	// the following path would be used instead: "./font/consolas.ttf"
 	m_font = new Font("../bin/font/consolas.ttf", 32);
@@ -73,17 +86,50 @@ void PhysicsProjectProjectilesApp::update(float deltaTime) {
 	Input* input = Input::getInstance();
 
 
-	if (input->isMouseButtonDown(0))
+
+	Gizmos::clear();
+
+	m_physicsScene->update(deltaTime);
+	m_physicsScene->updateGizmos();
+
+	static bool isCreating;
+	static vec2 createdPosition = vec2(input->getMouseX(), input->getMouseY());
+
+	if (input->wasMouseButtonPressed(0) && isCreating == false)
 	{
-		Gizmos::clear();
-
-		setupContinuousDemo(ball1->getPosition(), ball1->getVelocity(), m_physicsScene->getGravity(), ball1->getMass());
-		setupContinuousDemo(ball2->getPosition(), ball2->getVelocity(), m_physicsScene->getGravity(), ball2->getMass());
-		setupContinuousDemo(ball3->getPosition(), ball3->getVelocity(), m_physicsScene->getGravity(), ball3->getMass());
-
-		m_physicsScene->update(deltaTime);
-		m_physicsScene->updateGizmos();
+		isCreating = true;
+		createdPosition = ToWorldSpace(input->getMouseX(), input->getMouseY());
 	}
+
+	if (isCreating)
+	{
+		Gizmos::add2DCircle(createdPosition, 1, 32, vec4(1, 1, 1, 1));
+
+		setupContinuousDemo(createdPosition, createdPosition - ToWorldSpace(input->getMouseX(), input->getMouseY()), m_physicsScene->getGravity(), 1);
+
+		if (!input->isMouseButtonDown(0))
+		{
+			isCreating = false;
+			m_physicsScene->addActor(new Sphere(createdPosition, createdPosition - ToWorldSpace(input->getMouseX(), input->getMouseY()), 1, 1, vec4(1, 1, 1, 1)));
+
+		}
+	}
+
+	if (input->isMouseButtonDown(1))
+	{
+		for each (PhysicsObject * var in m_physicsScene->getActors())
+		{
+			if (dynamic_cast<Rigidbody*>(var) != nullptr)
+			{
+				if (dynamic_cast<Rigidbody*>(var)->ContainsPoint(ToWorldSpace(input->getMouseX(), input->getMouseY())))
+				{
+					m_physicsScene->removeActor(var);
+				}
+			}
+		}
+	}
+
+
 
 	static const vec4 colours[] =
 	{
@@ -122,20 +168,43 @@ void PhysicsProjectProjectilesApp::update(float deltaTime) {
 
 	//Draw ball
 
-	static int paddleX = -40;
+
+
+	static vec2 paddlePosition = vec2(0, 0);
 
 	if (input->isKeyDown(INPUT_KEY_A))
 	{
-		paddleX--;
+		paddlePosition.x--;
 	}
 
 	if (input->isKeyDown(INPUT_KEY_D))
 	{
-		paddleX++;
+		paddlePosition.x++;
+	}
+
+	if (input->isKeyDown(INPUT_KEY_S))
+	{
+		paddlePosition.y--;
+	}
+
+	if (input->isKeyDown(INPUT_KEY_W))
+	{
+		paddlePosition.y++;
+	}
+
+	if (input->isKeyDown(INPUT_KEY_Q))
+	{
+		paddle->m_rotation++;
+	}
+
+	if (input->isKeyDown(INPUT_KEY_E))
+	{
+		paddle->m_rotation--;
 	}
 
 	//Draw paddle
-	Gizmos::add2DAABBFilled(vec2(paddleX, -40), vec2(12, 2), vec4(1, 0, 1, 1));
+	paddle->setPosition(paddlePosition);
+
 	// exit the application
 	if (input->isKeyDown(INPUT_KEY_ESCAPE))
 		quit();
