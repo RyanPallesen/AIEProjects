@@ -5,7 +5,6 @@ using UnityEngine.Events;
 public class TerrainChunk
 {
 
-    public bool hasBeenIndexed;
 
     public enum Tags
     {
@@ -18,6 +17,8 @@ public class TerrainChunk
     }
 
     public List<Tags> tags = new List<Tags>();
+
+    public TownChunk townchunk;
 
     const float colliderGenerationDistanceThreshold = 5;
     public event System.Action<TerrainChunk, bool> onVisibilityChanged;

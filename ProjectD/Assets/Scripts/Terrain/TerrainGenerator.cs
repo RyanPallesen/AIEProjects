@@ -117,54 +117,33 @@ public class TerrainGenerator : MonoBehaviour
     public float beachHeight = 15f;
     void AttemptPopulateChunk(TerrainChunk chunk)
     {
-        chunk.meshObject.name = chunk.averageHeight.ToString();
+        chunk.meshObject.name = "";
 
         float baseAverage = chunk.averageHeight;
 
-        bool mayContainTown = true;
+        bool mayContainTown = false;
 
 
-        //check for chokepoint on land v water, check until water, find total distance from water to water.
-        for (int x = -1; x <= 1; x++)
+        if (chunk.heightMap.maxValue - chunk.heightMap.minValue < townHeightRange)
         {
-            for (int y = -1; y <= 1; y++)
-            {
-                Vector2 viewedChunkCoord = new Vector2(chunk.coord.x + x, chunk.coord.y + y);
-                if (terrainChunkDictionary.ContainsKey(viewedChunkCoord))
-                {
-                    TerrainChunk checkingChunk = terrainChunkDictionary[viewedChunkCoord];
-
-                    if (checkingChunk.averageHeight != 0)//verify chunk has been initialized
-                    {
-                        if (checkingChunk.averageHeight > baseAverage - townHeightRange && checkingChunk.averageHeight < baseAverage + townHeightRange)
-                        {
-
-                        }
-                        else
-                        {
-                            mayContainTown = false;
-                        }
-                    }
-
-                }
-            }
+            mayContainTown = true;
         }
 
         if (baseAverage < waterHeight)
         {
             mayContainTown = false;
-            chunk.meshObject.name += "DROWNED";
+            //chunk.meshObject.name += "DROWNED";
             chunk.tags.Add(TerrainChunk.Tags.UNDERWATER);
         }
         else if (baseAverage < beachHeight)
         {
-            chunk.meshObject.name += "Beach";
+            //chunk.meshObject.name += "Beach";
             chunk.tags.Add(TerrainChunk.Tags.BEACH);
         }
 
         if (mayContainTown)
         {
-            chunk.meshObject.name += "TOWN";
+            //chunk.meshObject.name += "TOWN";
 
             chunk.tags.Add(TerrainChunk.Tags.TOWN);
 
@@ -172,12 +151,13 @@ public class TerrainGenerator : MonoBehaviour
         }
     }
 
+    int numTowns = 0;
+
     void UpdateTownChunk(TerrainChunk chunk)
     {
-        chunk.hasBeenIndexed = true;
+        chunk.meshObject.name = " ";
         Color randomColor = Random.ColorHSV();
 
-        Debug.Log("ETAET");
         if (chunk.tags.Contains(TerrainChunk.Tags.TOWN))
         {
             GameObject temp = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -185,7 +165,8 @@ public class TerrainGenerator : MonoBehaviour
             temp.transform.SetParent(chunk.meshObject.transform);
             temp.transform.localPosition = new Vector3(0, chunk.averageHeight, 0);
             temp.transform.localScale = new Vector3(32, 32, 32);
-            temp.GetComponent<Renderer>().material.color = randomColor;
+
+
 
             for (int x = -1; x <= 1; x++)
             {
@@ -201,8 +182,41 @@ public class TerrainGenerator : MonoBehaviour
                         newChunk.onGenerate += AttemptPopulateChunk;
                         newChunk.Load();
                     }
+
+                    if(terrainChunkDictionary[viewedChunkCoord].townchunk != null)//neighbour has a town
+                    {
+                        if (chunk.townchunk == null)//this chunk does not have a town
+                        {
+                            chunk.townchunk = terrainChunkDictionary[viewedChunkCoord].townchunk;
+                            randomColor = chunk.townchunk.townColor;
+                            chunk.meshObject.name = terrainChunkDictionary[viewedChunkCoord].meshObject.name;
+                        }
+                        else if (terrainChunkDictionary[viewedChunkCoord].townchunk != chunk.townchunk)//neighbouring chunk has a different town.
+                        {
+                            terrainChunkDictionary[viewedChunkCoord].townchunk = chunk.townchunk;
+                            terrainChunkDictionary[viewedChunkCoord].meshObject.transform.GetChild(0).GetComponent<Renderer>().material.color = chunk.townchunk.townColor;
+                           terrainChunkDictionary[viewedChunkCoord].meshObject.name = chunk.meshObject.name;
+
+                            UpdateTownChunk(terrainChunkDictionary[viewedChunkCoord]);
+
+                            chunk.meshObject.transform.Translate(new Vector3(0, -10, 0));
+                        }
+
+                    }
                 }
             }
+
+            if (chunk.townchunk == null)//no neighbours contained town
+            {
+                chunk.townchunk = new TownChunk();
+                chunk.townchunk.townColor = randomColor;
+                temp.GetComponent<Renderer>().material.color = randomColor;
+
+                chunk.townchunk.terrainChunks.Add(chunk);
+                chunk.meshObject.name = numTowns.ToString();
+                numTowns += 1;
+            }
+
         }
     }
 
