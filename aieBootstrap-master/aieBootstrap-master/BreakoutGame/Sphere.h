@@ -2,6 +2,7 @@
 #include "Rigidbody.h"
 class Sphere : public Rigidbody {
 public:  ~Sphere();
+	  virtual void OnCollide(PhysicsObject* other) {};
 
 	  virtual void makeGizmo();
 

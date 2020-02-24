@@ -6,13 +6,15 @@ Box::Box(glm::vec2 position, glm::vec2 velocity, float mass, glm::vec2 halfExten
 
 
 void Box::fixedUpdate(glm::vec2 gravity, float timeStep)
-{
-	Rigidbody::fixedUpdate(gravity, timeStep);
-	//store the local axes
+{//store the local axes
 	float cs = cosf(m_rotation);
 	float sn = sinf(m_rotation);
 	m_localX = glm::normalize(glm::vec2(cs, sn));
 	m_localY = glm::normalize(glm::vec2(-sn, cs));
+
+
+	Rigidbody::fixedUpdate(gravity, timeStep);
+
 
 }
 
@@ -29,7 +31,7 @@ void Box::makeGizmo()
 {
 	// if only using rotation
 	//glm::mat4 transform = glm::rotate(m_rotation, glm::vec3(0, 0, 1));
-    //aie::Gizmos::add2DAABBFilled(getCenter(), m_extents, m_colour, &transform);
+	//aie::Gizmos::add2DAABBFilled(getCenter(), m_extents, m_colour, &transform);
 	// draw using local axes
 
 

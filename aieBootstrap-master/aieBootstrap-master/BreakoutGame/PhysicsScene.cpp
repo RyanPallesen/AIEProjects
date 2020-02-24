@@ -12,6 +12,11 @@ void PhysicsScene::addActor(PhysicsObject* actor)
 }
 void PhysicsScene::removeActor(PhysicsObject* actor)
 {
+	pendingRemovalActors.push_back(actor);
+}
+
+void PhysicsScene::DeleteActor(PhysicsObject* actor)
+{
 	for (int i = 0; i < m_actors.size(); i++)
 	{
 		if (m_actors[i] == actor)
@@ -22,7 +27,6 @@ void PhysicsScene::updateGizmos() { for (auto pActor : m_actors) { pActor->makeG
 
 void PhysicsScene::checkForCollision()
 {
-
 	int actorCount = m_actors.size();
 	//need to check for collisions against all objects except this one.
 	for (int outer = 0; outer < actorCount - 1; outer++)
@@ -46,13 +50,40 @@ void PhysicsScene::checkForCollision()
 				// did a collision occur?
 				if (collisionFunctionPtr(object1, object2))
 				{
+					{
 
+						if (object1->m_shapeID == SPHERE && object2->m_shapeID == BOX)
+						{
+							for (std::string var : object2->tags)
+							{
+								if (var == "Breakable")
+									removeActor(object2);
+							}
+						}
+
+						if (object2->m_shapeID == SPHERE && object1->m_shapeID == BOX)
+						{
+							for (std::string var : object1->tags)
+							{
+								if (var == "Breakable")
+									removeActor(object1);
+							}
+						}
+					}
 				}
 			}
 		}
 	}
 
+
+	for (PhysicsObject* actor : pendingRemovalActors) { DeleteActor(actor); }
+
+	pendingRemovalActors.clear();
+
 }
+
+
+
 
 
 bool PhysicsScene::sphere2Sphere(PhysicsObject* obj1, PhysicsObject* obj2)
@@ -101,7 +132,6 @@ bool PhysicsScene::sphere2Plane(PhysicsObject* obj1, PhysicsObject* obj2)
 		if (intersection > 0) {
 			sphere->setPosition(sphere->getPosition() + collisionNormal * (sphere->getRadius() - sphereToPlane));
 			plane->resolveCollision(sphere, sphere->getPosition() + (collisionNormal * -sphere->getRadius()));
-
 			return true;
 		}
 	}
@@ -231,13 +261,24 @@ bool PhysicsScene::box2Sphere(PhysicsObject* obj1, PhysicsObject* obj2) {
 			// average, and convert back into world coords
 			contact = box->getPosition() + (1.0f / numContacts) *
 				(box->getLocalX() * contact.x + box->getLocalY() * contact.y);
+
+
 			box->resolveCollision(sphere, contact, direction);
+
+
 
 			// given the contact point we can find a penetration amount and normal
 			float pen = sphere->getRadius() - glm::length(contact - sphere-> getPosition());
 			glm::vec2 norm = glm::normalize(sphere->getPosition() - contact);
+
+			if (direction != nullptr)
+			{
+				norm = *direction;
+			}
 			ApplyContactForces(box, sphere, norm, pen);
 
+			delete direction;
+			return true;
 		}
 		delete direction;
 	}

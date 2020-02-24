@@ -9,6 +9,8 @@ class PhysicsScene
 {
 public:
 
+	BreakoutGameApp* app;
+
 	PhysicsScene::PhysicsScene(float timestep, glm::vec2 gravity);
 	~PhysicsScene();
 	void addActor(PhysicsObject* actor);
@@ -35,9 +37,13 @@ public:
 	std::vector<PhysicsObject*> getActors() { return m_actors; }
 
 protected:
+
+	void DeleteActor(PhysicsObject* actor);
 	glm::vec2 m_gravity;
 	float m_timeStep;
 	std::vector<PhysicsObject*> m_actors;
+    std::vector<PhysicsObject*> pendingRemovalActors;
+
 };
 
 typedef bool(*fn)(PhysicsObject*, PhysicsObject*);

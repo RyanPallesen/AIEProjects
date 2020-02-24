@@ -9,6 +9,7 @@ public:
 	virtual void debug() {};
 	void applyForce(glm::vec2 force, glm::vec2 pos);
 	void resolveCollision(Rigidbody* actor2, glm::vec2 contact, glm::vec2* collisionNormal = nullptr);
+	virtual void OnCollide(PhysicsObject* other) {};
 
 	virtual bool ContainsPoint(glm::vec2 point) { return false; };
 
@@ -31,7 +32,8 @@ public:
 	{
 		m_position = position;
 	}
-public:  
+public: 
+
 	  glm::vec2 m_position;
 	  glm::vec2 m_velocity;
 	  float m_mass;
