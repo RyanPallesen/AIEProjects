@@ -53,8 +53,8 @@ bool BreakoutGameApp::startup() {
 
 	};
 
-	static const int rows = 5;
-	static const int columns = 10;
+	static const int rows = 2;//5
+	static const int columns = 2;//10
 	static const int hSpace = 6;
 	static const int vSpace = 3;
 
@@ -71,7 +71,7 @@ bool BreakoutGameApp::startup() {
 		pos = vec2(startPos.x, startPos.y - (y * ((boxExtents.y * 2) + hSpace)));
 		for (int x = 0; x < columns; x++)
 		{
-			Box* box = new Box(pos, vec2(0, 0), 256, boxExtents, colours[y], 15, 1.0f, 2.0f, 2.0f);
+			Box* box = new Box(pos, vec2(0, 0), 256, vec2(rand() % 5,rand()%3), colours[y], rand() % 180, 1.0f, 2.0f, 2.0f);
 			box->tags.push_back("Breakable");
 			box->setKinematic(true);
 			m_physicsScene->addActor(box);

@@ -62,7 +62,7 @@ void Box::makeGizmo()
 bool Box::checkBoxCorners(const Box& box, glm::vec2& contact, int& numContacts,
 	float& pen, glm::vec2& edgeNormal)
 {
-	float minX, maxX, minY, maxY;
+	float minX = 0, maxX = 0, minY = 0, maxY = 0;
 	float boxW = box.getExtents().x * 2;
 	float boxH = box.getExtents().y * 2;
 	int numLocalContacts = 0;
@@ -90,8 +90,7 @@ bool Box::checkBoxCorners(const Box& box, glm::vec2& contact, int& numContacts,
 			first = false;
 		}
 	}
-	if (maxX <-m_extents.x || minX >m_extents.x ||
-		maxY<-m_extents.y || minY >m_extents.y)
+	if (maxX <-m_extents.x || minX >m_extents.x || maxY<-m_extents.y || minY >m_extents.y)
 		return false;
 	if (numLocalContacts == 0)
 		return false;

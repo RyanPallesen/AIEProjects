@@ -49,7 +49,6 @@ public class Gun : MonoBehaviour
     }
 
     public GunPart[] gunParts = new GunPart[(int)GunPartType.COUNT];
-
     public GunPart.Rarity rarity { get { int returnValue = 0; foreach (GunPart part in gunParts) { returnValue += (int)part.rarity; } returnValue /= gunParts.Length; return (GunPart.Rarity)returnValue; } }
     public int ClipSize { get { int returnValue = 0; foreach (GunPart part in gunParts) { returnValue += part.baseClipSize; } return returnValue; } }
     public int AmmoSize { get { int returnValue = 0; foreach (GunPart part in gunParts) { returnValue += part.baseAmmoSize; } return returnValue; } }
@@ -123,6 +122,7 @@ public class Gun : MonoBehaviour
 
     public void FireGun()
     {
+        Camera.main.transform.Rotate(new Vector3(0, 1, 0));
 
         GameObject child = Instantiate<GameObject>(Projectile);
         child.transform.position = transform.position + transform.forward;

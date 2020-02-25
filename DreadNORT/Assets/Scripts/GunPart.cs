@@ -17,8 +17,7 @@ public class GunPart
         switch (_GunPartType)
         {
             case Gun.GunPartType.BODY:
-                returnPart = GetRandomBody(cost);
-                break;
+                returnPart = GetRandomBody(cost); break;
             case Gun.GunPartType.BODYMOD:
                 returnPart = GetRandomBodyMod(cost); break;
             case Gun.GunPartType.BARREL:
@@ -62,7 +61,7 @@ public class GunPart
         int bodyType = Random.Range(0, 3);
 
         returnPart.baseProjectileSpeed = Mathf.Clamp(Random.Range((cost / 100) * 4, (cost / 100) * 8),2,128);
-        //returnPart.projectile = 
+        returnPart.projectile = Resources.Load<GameObject>("BulletPrefab/BaseBullet");
         returnPart.baseDamagePerBullet = Random.Range((cost / 100) * 1, (cost / 50) * 2);
         returnPart.baseRecoil = new Vector3(Random.Range(0, 5 * returnPart.baseDamagePerBullet), Random.Range(0, 5 * returnPart.baseDamagePerBullet), 0);
         returnPart.baseProjectileGravity = (Random.Range(-5 * returnPart.baseDamagePerBullet, 5 * returnPart.baseDamagePerBullet));
@@ -209,6 +208,8 @@ public class GunPart
 
     public enum Rarity
     {
+        NONE,
+
         Common,
         Uncommon,
         Customized,
@@ -216,10 +217,14 @@ public class GunPart
         Specialty,
         Legendary,
         Badass,
+
+        COUNT,
     }
 
     public enum Specialty
     {
+        NONE,
+
         RICOCHET,
         PIERCING,
         CHAINING,
@@ -240,6 +245,7 @@ public class GunPart
 
         COUNT
     }
+
     [Header("Instantiation")]
     public Gun.GunPartType GunPartType;
     public GameObject partPrefab;

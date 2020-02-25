@@ -37,7 +37,7 @@ public class GunHandler : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.R))
         {
             Destroy(gun);
             gun = GenerateNewGun(AvailableCost);
