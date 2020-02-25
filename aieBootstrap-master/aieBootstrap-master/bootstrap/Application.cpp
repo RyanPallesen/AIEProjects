@@ -92,7 +92,7 @@ void Application::run(const char* title, int width, int height, bool fullscreen)
 			glfwPollEvents();
 
 			// skip if minimised
-			if (glfwGetWindowAttrib(m_window, GLFW_ICONIFIED) != 0)
+		if (glfwGetWindowAttrib(m_window, GLFW_ICONIFIED) != 0)
 				continue;
 
 			// update fps every second

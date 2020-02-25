@@ -10,6 +10,7 @@ void PhysicsScene::addActor(PhysicsObject* actor)
 {
 	m_actors.push_back(actor);
 }
+
 void PhysicsScene::removeActor(PhysicsObject* actor)
 {
 	pendingRemovalActors.push_back(actor);
@@ -81,10 +82,6 @@ void PhysicsScene::checkForCollision()
 	pendingRemovalActors.clear();
 
 }
-
-
-
-
 
 bool PhysicsScene::sphere2Sphere(PhysicsObject* obj1, PhysicsObject* obj2)
 {
@@ -289,20 +286,27 @@ bool PhysicsScene::box2Box(PhysicsObject* obj1, PhysicsObject* obj2) {
 	Box* box1 = dynamic_cast<Box*>(obj1);
 	Box* box2 = dynamic_cast<Box*>(obj2);
 	if (box1 != nullptr && box2 != nullptr) {
+
+		
+
 		glm::vec2 boxPos = box2->getCenter() - box1->getCenter();
-		glm::vec2 norm(0, 0);
-		glm::vec2 contact(0, 0);
-		float pen = 0;
-		int numContacts = 0;
-		box1->checkBoxCorners(*box2, contact, numContacts, pen, norm);
-		if (box2->checkBoxCorners(*box1, contact, numContacts, pen, norm)) {
-			norm = -norm;
+
+		if(boxPos.length() < ((float)box1->getExtents().length() + (float)box2->getExtents().length()));
+		{
+			glm::vec2 norm(0, 0);
+			glm::vec2 contact(0, 0);
+			float pen = 0;
+			int numContacts = 0;
+			box1->checkBoxCorners(*box2, contact, numContacts, pen, norm);
+			if (box2->checkBoxCorners(*box1, contact, numContacts, pen, norm)) {
+				norm = -norm;
+			}
+			if (pen > 0) {
+				box1->resolveCollision(box2, contact / float(numContacts), &norm);
+				ApplyContactForces(box1, box2, norm, pen);
+			}
+			return true;
 		}
-		if (pen > 0) {
-			box1->resolveCollision(box2, contact / float(numContacts), &norm);
-			ApplyContactForces(box1, box2, norm, pen);
-		}
-		return true;
 	}
 	return false;
 }
@@ -322,7 +326,6 @@ void PhysicsScene::ApplyContactForces(Rigidbody* body1, Rigidbody* body2, glm::v
 }
 
 void PhysicsScene::update(float dt) {
-
 
 	// update physics at a fixed time step 
 	static float accumulatedTime = 0.0f;
