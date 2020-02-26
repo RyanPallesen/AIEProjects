@@ -8,9 +8,6 @@
 class PhysicsScene
 {
 public:
-
-	BreakoutGameApp* app;
-
 	PhysicsScene::PhysicsScene(float timestep, glm::vec2 gravity);
 	~PhysicsScene();
 	void addActor(PhysicsObject* actor);
@@ -23,6 +20,7 @@ public:
 	void setTimeStep(const float timeStep) { m_timeStep = timeStep; }
 	float getTimeStep() const { return m_timeStep; }
 	void checkForCollision();
+	void ReserveSpace(int numObjects);
 	static bool plane2Plane(PhysicsObject*, PhysicsObject*);
 	static bool plane2Sphere(PhysicsObject*, PhysicsObject*);
 	static bool sphere2Plane(PhysicsObject*, PhysicsObject*);

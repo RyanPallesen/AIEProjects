@@ -20,8 +20,13 @@ void PhysicsScene::DeleteActor(PhysicsObject* actor)
 {
 	for (int i = 0; i < m_actors.size(); i++)
 	{
+
 		if (m_actors[i] == actor)
+		{
+			delete m_actors[i];
+
 			m_actors.erase(m_actors.begin() + i);
+		}
 	}
 }
 void PhysicsScene::updateGizmos() { for (auto pActor : m_actors) { pActor->makeGizmo(); } }
@@ -48,26 +53,33 @@ void PhysicsScene::checkForCollision()
 			fn collisionFunctionPtr = collisionFunctionArray[functionIdx];
 			if (collisionFunctionPtr != nullptr)
 			{
-				// did a collision occur?
-				if (collisionFunctionPtr(object1, object2))
+				bool actor1IsKinematic = (!static_cast<Rigidbody*>(object1) || static_cast<Rigidbody*>(object1)->isKinematic());
+				bool actor2IsKinematic = (!static_cast<Rigidbody*>(object2) || static_cast<Rigidbody*>(object2)->isKinematic());
+
+				//do not evaluate collisions between 2 kinematic objects
+				if (!actor1IsKinematic || !actor2IsKinematic)
 				{
+					// did a collision occur?
+					if (collisionFunctionPtr(object1, object2))
 					{
-
-						if (object1->m_shapeID == SPHERE && object2->m_shapeID == BOX)
 						{
-							for (std::string var : object2->tags)
+
+							if (object1->m_shapeID == SPHERE && object2->m_shapeID == BOX)
 							{
-								if (var == "Breakable")
-									removeActor(object2);
+								for (std::string var : object2->tags)
+								{
+									if (var == "Breakable")
+										removeActor(object2);
+								}
 							}
-						}
 
-						if (object2->m_shapeID == SPHERE && object1->m_shapeID == BOX)
-						{
-							for (std::string var : object1->tags)
+							if (object2->m_shapeID == SPHERE && object1->m_shapeID == BOX)
 							{
-								if (var == "Breakable")
-									removeActor(object1);
+								for (std::string var : object1->tags)
+								{
+									if (var == "Breakable")
+										removeActor(object1);
+								}
 							}
 						}
 					}
@@ -82,6 +94,12 @@ void PhysicsScene::checkForCollision()
 	pendingRemovalActors.clear();
 
 }
+
+void PhysicsScene::ReserveSpace(int numObjects)
+{
+	m_actors.reserve(numObjects);
+}
+
 
 bool PhysicsScene::sphere2Sphere(PhysicsObject* obj1, PhysicsObject* obj2)
 {

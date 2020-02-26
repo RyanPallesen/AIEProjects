@@ -19,7 +19,6 @@ public:
 
 	bool checkBoxCorners(const Box& box, glm::vec2& contact, int& numContacts, float& pen, glm::vec2& edgeNormal);
 
-	virtual void OnCollide(PhysicsObject* other) {};
 
 private:
 

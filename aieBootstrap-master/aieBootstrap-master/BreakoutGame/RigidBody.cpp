@@ -73,13 +73,13 @@ void Rigidbody::resolveCollision(Rigidbody* actor2, glm::vec2 contact, glm::vec2
 			force = (1.0f + elasticity) * m_mass * actor2->m_mass / (m_mass + actor2->m_mass) * (glm::dot(m_velocity, normal) - glm::dot(actor2->m_velocity, normal)) * normal;
 		}
 
-		std::cout << " M1 " << mass1 << std::endl;
-		std::cout << " M2 " << mass2 << std::endl;
-		std::cout << " elasticity " << elasticity << std::endl;
-		std::cout << " v1 " << v1 << std::endl;
-		std::cout << " v2 " << v2 << std::endl;
-		std::cout << " force " << force.x << " " << force.y << std::endl;
-		std::cout << std::endl;
+		//std::cout << " M1 " << mass1 << std::endl;
+		//std::cout << " M2 " << mass2 << std::endl;
+		//std::cout << " elasticity " << elasticity << std::endl;
+		//std::cout << " v1 " << v1 << std::endl;
+		//std::cout << " v2 " << v2 << std::endl;
+		//std::cout << " force " << force.x << " " << force.y << std::endl;
+		//std::cout << std::endl;
 		//apply equal and opposite forces
 		applyForce(-force, contact - m_position);
 		actor2->applyForce(force, contact - actor2->m_position);

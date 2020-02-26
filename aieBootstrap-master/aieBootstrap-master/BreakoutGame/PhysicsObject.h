@@ -5,9 +5,6 @@
 
 enum ShapeType { PLANE = 0, SPHERE, BOX, SHAPE_COUNT };
 
-class BreakoutGameApp;
-
-
 class PhysicsObject {
 protected:
 	PhysicsObject() {};
@@ -15,8 +12,6 @@ protected:
 
 
 public:
-	virtual void OnCollide(PhysicsObject* other) {};
-
 	virtual void fixedUpdate(glm::vec2 gravity, float timeStep) = 0;
 	virtual void debug() = 0;
 	virtual void makeGizmo() = 0;

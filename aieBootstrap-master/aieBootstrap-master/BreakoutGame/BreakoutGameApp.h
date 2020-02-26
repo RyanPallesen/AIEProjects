@@ -28,7 +28,7 @@ public:
 protected:
 
 	int gameScore;
-	int gameLives = 3000;
+	int gameLives = 5;
 
 	aie::Renderer2D* m_2dRenderer;
 	aie::Font* m_font;
