@@ -12,7 +12,6 @@ using namespace aie;
 
 BreakoutGameApp::BreakoutGameApp()
 {
-	gameInstance = this;
 }
 BreakoutGameApp::~BreakoutGameApp()
 {

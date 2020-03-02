@@ -8,8 +8,6 @@
 #include "Plane.h"
 #include "Box.h"
 
-static BreakoutGameApp* gameInstance = nullptr;
-
 class BreakoutGameApp : public aie::Application {
 public:
 
