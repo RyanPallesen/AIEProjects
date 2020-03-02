@@ -110,7 +110,7 @@ void PhysicsProjectProjectilesApp::update(float deltaTime) {
 		if (!input->isMouseButtonDown(0))
 		{
 			isCreating = false;
-			m_physicsScene->addActor(new Sphere(createdPosition, createdPosition - ToWorldSpace(input->getMouseX(), input->getMouseY()), 1, 1, vec4(1, 1, 1, 1)));
+			m_physicsScene->addActor(new Sphere(createdPosition, createdPosition - ToWorldSpace(input->getMouseX(), input->getMouseY()), 1, 1, vec4(1, 1, 1, 1),0.9f,0.0f));
 
 		}
 	}
