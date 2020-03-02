@@ -61,11 +61,11 @@ bool BreakoutApp::startup() {
 	Gizmos::create(255U, 255U, 65535U, 65535U);
 
 	m_2dRenderer = new Renderer2D();
-	m_physicsScene = new PhysicsScene(0.001f, vec2(0, -25));
+	m_physicsScene = new PhysicsScene(0.01f, vec2(0, -25));
 
-	m_physicsScene->addActor(new Box(glm::vec2(-10, 5), glm::vec2(-55, 5), 64, glm::vec2(2, 5), glm::vec4(0.25f, 0.5f, 0.0f, 1), 0));
+	m_physicsScene->addActor(new Box(glm::vec2(-10, 5), glm::vec2(-55, 5), 64, glm::vec2(2, 5), glm::vec4(0.25f, 0.5f, 0.0f, 1), 0, 1.0f, 0.01f, 0.01f));
 
-	m_physicsScene->addActor(new Box(glm::vec2(10, 5), glm::vec2(55, 5), 64, glm::vec2(2, 5), glm::vec4(0.6f, 0.1f, 0.0f, 1), 0));
+	m_physicsScene->addActor(new Box(glm::vec2(10, 5), glm::vec2(55, 5), 64, glm::vec2(2, 5), glm::vec4(0.6f, 0.1f, 0.0f, 1), 0, 1.0f, 0.01f, 0.01f));
 
 
 	Plane* plane1 = new Plane(vec2(2, -2), 80);
@@ -115,11 +115,11 @@ void BreakoutApp::update(float deltaTime) {
 
 		if (rand() % 100 < 60)
 		{
-			m_physicsScene->addActor(new Sphere(vec2(x, y), vec2(1, 1), size, size, vec4((float)rand() / RAND_MAX, (float)rand() / RAND_MAX, (float)rand() / RAND_MAX, 1)));
+			m_physicsScene->addActor(new Sphere(vec2(x, y), vec2(1, 1), size, size, vec4((float)rand() / RAND_MAX, (float)rand() / RAND_MAX, (float)rand() / RAND_MAX, 1),1.0f,0.01f,0.01f));
 		}
 		else
 		{
-			m_physicsScene->addActor(new Box(vec2(x, y), vec2(-1, -1), size * sizey, vec2(size, sizey), vec4((float)rand() / RAND_MAX, (float)rand() / RAND_MAX, (float)rand() / RAND_MAX, 1), rand() % 360));
+			m_physicsScene->addActor(new Box(vec2(x, y), vec2(-1, -1), size * sizey, vec2(size, sizey), vec4((float)rand() / RAND_MAX, (float)rand() / RAND_MAX, (float)rand() / RAND_MAX, 1), rand() % 360, 0.1f, 0.01f, 0.01f));
 		}
 	}
 
