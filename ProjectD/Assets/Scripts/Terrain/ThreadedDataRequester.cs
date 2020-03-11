@@ -6,8 +6,8 @@ using System.Threading;
 
 public class ThreadedDataRequester : MonoBehaviour {
 
-	static ThreadedDataRequester instance;
-	Queue<ThreadInfo> dataQueue = new Queue<ThreadInfo>();
+	public static ThreadedDataRequester instance;
+	public Queue<ThreadInfo> dataQueue = new Queue<ThreadInfo>();
 
 	void Awake() {
 		instance = FindObjectOfType<ThreadedDataRequester> ();
@@ -38,7 +38,7 @@ public class ThreadedDataRequester : MonoBehaviour {
 		}
 	}
 
-	struct ThreadInfo {
+	public struct ThreadInfo {
 		public readonly Action<object> callback;
 		public readonly object parameter;
 

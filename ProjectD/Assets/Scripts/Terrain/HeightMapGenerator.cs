@@ -8,13 +8,39 @@ public static class HeightMapGenerator {
 		float[,] values = Noise.GenerateNoiseMap (width, height, settings.noiseSettings, sampleCentre);
 
 		AnimationCurve heightCurve_threadsafe = new AnimationCurve (settings.heightCurve.keys);
+		AnimationCurve falloffCurve_threadsafe = new AnimationCurve (settings.fallOffCurve.keys);
 
 		float minValue = float.MaxValue;
 		float maxValue = float.MinValue;
 
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
-				values [i, j] *= heightCurve_threadsafe.Evaluate (values [i, j]) * settings.heightMultiplier;
+				values[i, j] *= heightCurve_threadsafe.Evaluate(values[i, j]) * settings.heightMultiplier;
+
+				if (settings.useFalloff)
+				{
+					Vector2 falloffVector = new Vector2(sampleCentre.x + (i - width / 2), sampleCentre.y - (j - height / 2));
+
+					if (settings.multipleContinents)
+					{
+						falloffVector.x = Mathf.RoundToInt(falloffVector.x / (settings.noiseSettings.scale * 10)) * (settings.noiseSettings.scale * 10);
+						falloffVector.y = Mathf.RoundToInt(falloffVector.y / (settings.noiseSettings.scale * 10)) * (settings.noiseSettings.scale * 10);
+					}
+					else
+					{
+						falloffVector = Vector2.zero;
+					}
+
+					Vector2 falloffVector2 = new Vector2(sampleCentre.x + (i - width / 2), sampleCentre.y - (j - height / 2));
+
+
+					values[i, j] *= falloffCurve_threadsafe.Evaluate(Vector2.Distance(falloffVector2, falloffVector) / (settings.noiseSettings.scale * 4));
+				}
+
+				if (values[i, j] < 0)
+				{
+					values[i, j] = 0;
+				}
 
 				if (values [i, j] > maxValue) {
 					maxValue = values [i, j];

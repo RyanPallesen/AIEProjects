@@ -7,9 +7,11 @@ public class HeightMapSettings : UpdatableData {
 	public NoiseSettings noiseSettings;
 
 	public bool useFalloff;
+	public bool multipleContinents;
 
 	public float heightMultiplier;
 	public AnimationCurve heightCurve;
+	public AnimationCurve fallOffCurve;
 
 	public float minHeight {
 		get {
