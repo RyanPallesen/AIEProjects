@@ -2,9 +2,11 @@
 using UnityEngine;
 using UnityEngine.Events;
 
+[System.Serializable]
 public class TerrainChunk
 {
-
+    [HideInInspector] public bool hasGenerated;
+    [HideInInspector] public bool hasBeenTownIndexed;
 
     public enum Tags
     {
@@ -18,12 +20,12 @@ public class TerrainChunk
 
     public List<Tags> tags = new List<Tags>();
 
-    public TownChunk townchunk;
+    [System.NonSerialized] public TownChunk townchunk;
 
     const float colliderGenerationDistanceThreshold = 5;
-    public event System.Action<TerrainChunk, bool> onVisibilityChanged;
-    public event System.Action<TerrainChunk> onGenerate;
-    public Vector2 coord;
+    [HideInInspector] public event System.Action<TerrainChunk, bool> onVisibilityChanged;
+    [HideInInspector] public event System.Action<TerrainChunk> onGenerate;
+    [HideInInspector] public Vector2 coord;
 
     public GameObject meshObject;
     Vector2 sampleCentre;
@@ -37,13 +39,13 @@ public class TerrainChunk
     LODMesh[] lodMeshes;
     int colliderLODIndex;
 
-    public HeightMap heightMap;
+    [HideInInspector] public HeightMap heightMap;
     bool heightMapReceived;
     int previousLODIndex = -1;
     bool hasSetCollider;
     float maxViewDst;
 
-    public float averageHeight { get { return (heightMap.maxValue + heightMap.minValue) / 2; } }
+    [HideInInspector] public float averageHeight { get { return (heightMap.maxValue + heightMap.minValue) / 2; } }
 
     HeightMapSettings heightMapSettings;
     MeshSettings meshSettings;
@@ -90,8 +92,8 @@ public class TerrainChunk
 
     public void Load()
     {
-        ThreadedDataRequester.RequestData(() => HeightMapGenerator.GenerateHeightMap(meshSettings.numVertsPerLine, meshSettings.numVertsPerLine, heightMapSettings, sampleCentre), OnHeightMapReceived);
-
+        //ThreadedDataRequester.RequestData(() => HeightMapGenerator.GenerateHeightMap(meshSettings.numVertsPerLine, meshSettings.numVertsPerLine, heightMapSettings, sampleCentre), OnHeightMapReceived);
+        OnHeightMapReceived(HeightMapGenerator.GenerateHeightMap(meshSettings.numVertsPerLine, meshSettings.numVertsPerLine, heightMapSettings, sampleCentre));
     }
 
 
