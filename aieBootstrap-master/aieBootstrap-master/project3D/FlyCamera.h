@@ -27,8 +27,8 @@ public:
 
 
 protected:
-    float          m_fMoveSpeed;
-    float          m_fRotationSpeed;
+    float          m_fMoveSpeed = 6.0f;
+    float          m_fRotationSpeed = 0.5f;
 
     bool           m_bMouse2Clicked;
 

@@ -59,7 +59,7 @@ void Application3D::update(float deltaTime) {
 	vec4 white(1);
 	vec4 black(0, 0, 0, 1);
 	for (int i = 0; i < 101; ++i) {
-		Gizmos::addLine(vec3(-50 + i, 0, 10),
+		Gizmos::addLine(vec3(-50 + i, 0, 50),
 			vec3(-50 + i, 0, -50),
 			i == 50 ? white : black);
 		Gizmos::addLine(vec3(50, 0, -50 + i),
@@ -105,9 +105,6 @@ void Application3D::update(float deltaTime) {
 		glm::mat4 trans = glm::mat4(1.0f);
 		trans = glm::rotate(trans, time * currentPlanet.orbitSpeed, glm::vec3(0.0f, 1.0f, 0.0f));
 		glm::vec4 result = trans * glm::vec4(currentPlanet.position, 2.0f);
-
-
-
 		Gizmos::addSphere(result, currentPlanet.radius, 8, 8, currentPlanet.colour);
 	}
 

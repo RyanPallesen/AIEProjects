@@ -62,7 +62,7 @@ void FlyCamera::CameraMovement(float deltaTime)
     float fLength = glm::length(moveDir);
     if (fLength > 0.01f)
     {
-        //moveDir = ((float)deltaTime * m_fMoveSpeed) * glm::normalize(moveDir);
+        moveDir = ((float)deltaTime * m_fMoveSpeed) * glm::normalize(moveDir);
         SetPosition(GetPosition() + moveDir);
     }
 
@@ -121,9 +121,11 @@ void FlyCamera::CalculateRotation(double deltaTime, double xOffset, double yOffs
 
     if (xOffset == 0 && yOffset == 0) return;
     if (xOffset != 0.0) {
-        glm::mat4 rot = glm::rotate(rot, (float)(m_fRotationSpeed * deltaTime * -xOffset), glm::vec3(0, 1, 0));
+        glm::mat4 rot = glm::mat4(1.0f);
+        rot = glm::rotate(rot, (float)(m_fRotationSpeed * deltaTime * -xOffset), glm::vec3(0, 1, 0));
         SetTransform(GetTransform() * rot);
     }
+
     glm::mat4 oldTransform = GetTransform();
     glm::mat4 transform;
     glm::vec3 worldUp = glm::vec3(0, 1, 0);
