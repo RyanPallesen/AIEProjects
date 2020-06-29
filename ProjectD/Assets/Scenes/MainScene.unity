@@ -6883,9 +6883,9 @@ MonoBehaviour:
   viewer: {fileID: 984586952}
   mapMaterial: {fileID: 2100000, guid: a168c763bfff6a14091ea9985703c358, type: 2}
   existingTownChunks: []
-  townHeightRange: 16
+  townHeightRange: 48
   waterHeight: 25
-  beachHeight: 35
+  beachHeight: 32
 --- !u!114 &1577442129
 MonoBehaviour:
   m_ObjectHideFlags: 0
